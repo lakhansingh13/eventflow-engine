@@ -1,7 +1,12 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import { createClient } from "redis";
 
+console.log("REDIS ENV:", process.env.REDIS_URL);
+
 const client = createClient({
-  url: "redis://default:ChtWsSr7fl5FdKRjRNqDw3Ry2R3qaC71@redis-14489.crce292.ap-south-1-2.ec2.cloud.redislabs.com:14489"
+  url: process.env.REDIS_URL
 });
 
 client.on("error", (err) => {
@@ -10,7 +15,7 @@ client.on("error", (err) => {
 
 export const connectRedis = async () => {
   await client.connect();
-  console.log("Redis connected ✅");
+  console.log("Redis connected");
 };
 
 export default client;
